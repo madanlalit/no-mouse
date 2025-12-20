@@ -42,6 +42,26 @@ class NoMouse < Formula
     EOS
   end
 
+  def post_install
+    # Create symlink in /Applications for easy access
+    app_path = prefix/"NoMouse.app"
+    target = Pathname.new("/Applications/NoMouse.app")
+    
+    # Remove existing symlink if present
+    target.unlink if target.symlink?
+    
+    # Create new symlink
+    target.make_symlink(app_path)
+    ohai "Symlink created: /Applications/NoMouse.app"
+  end
+
+  def post_uninstall
+    # Remove symlink from /Applications on uninstall
+    target = Pathname.new("/Applications/NoMouse.app")
+    target.unlink if target.symlink?
+    ohai "Symlink removed: /Applications/NoMouse.app"
+  end
+
   def caveats
     <<~EOS
       NoMouse requires permissions to function:
@@ -51,8 +71,10 @@ class NoMouse < Formula
       
       Add NoMouse.app to both lists and enable them.
       
-      To start NoMouse:
-        open #{prefix}/NoMouse.app
+      NoMouse has been linked to /Applications.
+      To start: open /Applications/NoMouse.app
+      
+      Or use Spotlight (⌘ Space) and search "NoMouse"
     EOS
   end
 
