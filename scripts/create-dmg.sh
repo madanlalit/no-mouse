@@ -19,11 +19,17 @@ swift build -c release
 
 echo "📦 Creating app bundle..."
 mkdir -p "${APP_NAME}.app/Contents/MacOS"
+mkdir -p "${APP_NAME}.app/Contents/Resources"
 cp .build/release/NoMouse "${APP_NAME}.app/Contents/MacOS/"
 
-# Create Info.plist if it doesn't exist
-if [ ! -f "${APP_NAME}.app/Contents/Info.plist" ]; then
-    cat > "${APP_NAME}.app/Contents/Info.plist" << EOF
+# Copy app icon
+if [ -f "NoMouse/Resources/AppIcon.icns" ]; then
+    cp NoMouse/Resources/AppIcon.icns "${APP_NAME}.app/Contents/Resources/"
+    echo "🎨 App icon added"
+fi
+
+# Create Info.plist with icon reference
+cat > "${APP_NAME}.app/Contents/Info.plist" << EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -38,6 +44,8 @@ if [ ! -f "${APP_NAME}.app/Contents/Info.plist" ]; then
     <string>${VERSION}</string>
     <key>CFBundleShortVersionString</key>
     <string>${VERSION}</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>LSMinimumSystemVersion</key>
     <string>13.0</string>
     <key>LSUIElement</key>
@@ -47,7 +55,6 @@ if [ ! -f "${APP_NAME}.app/Contents/Info.plist" ]; then
 </dict>
 </plist>
 EOF
-fi
 
 echo "💿 Creating DMG..."
 
