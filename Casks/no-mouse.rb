@@ -3,7 +3,7 @@
 
 cask "no-mouse" do
   version "1.1.0"
-  sha256 "568ffedfbe87c947a9ec688485421baa42ad078617fdcbb0c00c7144748c8d39"
+  sha256 "e97f4471ea7d98c0ab8c46629c442cb80131715dbc8056ce754dcbd4f08ae064"
 
   url "https://github.com/madanlalit/no-mouse/releases/download/v#{version}/NoMouse.dmg"
   name "NoMouse"

@@ -60,9 +60,7 @@ echo "💿 Creating DMG..."
 
 # Create temporary directory for DMG contents
 DMG_TEMP="dmg_temp"
-DMG_RW="NoMouse_rw.dmg"
 rm -rf "$DMG_TEMP"
-rm -f "$DMG_RW"
 mkdir -p "$DMG_TEMP"
 
 # Copy app to temp directory
@@ -71,38 +69,17 @@ cp -R "${APP_NAME}.app" "$DMG_TEMP/"
 # Create Applications symlink
 ln -s /Applications "$DMG_TEMP/Applications"
 
-# Copy volume icon if app icon exists
-if [ -f "NoMouse/Resources/AppIcon.icns" ]; then
-    cp NoMouse/Resources/AppIcon.icns "$DMG_TEMP/.VolumeIcon.icns"
-fi
-
 # Remove old DMG if exists
 rm -f "$DMG_FILENAME"
 
-# Create read-write DMG first (needed to set custom icon)
+# Create DMG
 hdiutil create -volname "$DMG_NAME" \
     -srcfolder "$DMG_TEMP" \
-    -ov -format UDRW \
-    "$DMG_RW"
-
-# Mount the DMG to set custom icon attribute
-MOUNT_DIR=$(hdiutil attach -readwrite -noverify "$DMG_RW" | grep "Volumes" | awk '{print $3}')
-
-if [ -n "$MOUNT_DIR" ] && [ -f "$MOUNT_DIR/.VolumeIcon.icns" ]; then
-    # Set custom icon attribute on the volume
-    SetFile -a C "$MOUNT_DIR"
-    echo "🎨 Volume icon set"
-fi
-
-# Unmount
-hdiutil detach "$MOUNT_DIR" -quiet || true
-
-# Convert to compressed DMG
-hdiutil convert "$DMG_RW" -format UDZO -o "$DMG_FILENAME"
+    -ov -format UDZO \
+    "$DMG_FILENAME"
 
 # Cleanup
 rm -rf "$DMG_TEMP"
-rm -f "$DMG_RW"
 
 echo ""
 echo "✅ DMG created: $DMG_FILENAME"
