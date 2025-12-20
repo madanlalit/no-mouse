@@ -1,0 +1,28 @@
+# Build artifacts
+.build/
+.swiftpm/
+DerivedData/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# macOS
+.DS_Store
+*.dSYM/
+
+# App bundle (build output)
+NoMouse.app/Contents/MacOS/NoMouse
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# Xcode
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+
+# Swift Package Manager
+Packages/
+Package.resolved
