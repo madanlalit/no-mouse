@@ -87,7 +87,8 @@ final class OverlayWindowController: NSObject, ObservableObject {
         )
         
         // Configure window properties
-        window.level = .floating  // Above normal windows but below alerts
+        // Use screenSaver level to appear above menu bar and Dock
+        window.level = .screenSaver
         window.backgroundColor = .clear
         window.isOpaque = false
         window.hasShadow = false

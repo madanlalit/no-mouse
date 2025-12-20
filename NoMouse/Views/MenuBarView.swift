@@ -4,11 +4,12 @@ import SwiftUI
 struct MenuBarView: View {
     @ObservedObject var appState: AppState
     @ObservedObject var permissionManager: PermissionManager
+    @Environment(\.dismiss) private var dismiss
     
     var onQuit: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 6) {
             // Status Header
             statusSection
             
@@ -36,8 +37,8 @@ struct MenuBarView: View {
             }
             .keyboardShortcut("q")
         }
-        .padding(12)
-        .frame(width: 260)
+        .padding(10)
+        .frame(width: 220)
     }
     
     // MARK: - Sections
@@ -100,28 +101,63 @@ struct MenuBarView: View {
     }
     
     private var controlsSection: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Toggle("Enabled", isOn: $appState.isEnabled)
-                .toggleStyle(.switch)
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Text("Enabled")
+                Spacer()
+                Toggle("", isOn: $appState.isEnabled)
+                    .toggleStyle(.switch)
+                    .labelsHidden()
+            }
+            
+            if appState.isEnabled {
+                Divider()
+                    .padding(.vertical, 2)
+                
+                Text("Modes")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                
+                HStack {
+                    Text("Grid Mode")
+                    Spacer()
+                    Toggle("", isOn: $appState.isGridModeEnabled)
+                        .toggleStyle(.switch)
+                        .labelsHidden()
+                        .help("Show letter grid overlay for quick cursor positioning")
+                }
+                
+                HStack {
+                    Text("Flow Mode")
+                    Spacer()
+                    Toggle("", isOn: $appState.isFreeMoveEnabled)
+                        .toggleStyle(.switch)
+                        .labelsHidden()
+                        .help("Move cursor with arrow keys or HJKL")
+                }
+            }
         }
     }
     
     private var infoSection: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text("Shortcuts")
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            Group {
-                Text("⌃ Space → Activate grid")
-                Text("Type 2 letters → Jump cursor")
-                Text("Return → Left click")
-                Text("⇧ Return → Right click")
-                Text("Escape → Cancel")
+        Button(action: {
+            if let url = URL(string: "https://github.com/madanlalit/no-mouse/blob/main/SHORTCUTS.md") {
+                NSWorkspace.shared.open(url)
             }
-            .font(.system(.caption2, design: .monospaced))
-            .foregroundColor(.secondary)
+            dismiss()
+        }) {
+            HStack {
+                Image(systemName: "keyboard")
+                Text("View Shortcuts")
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .font(.caption2)
+            }
+            .font(.system(.body, design: .monospaced))
+            .contentShape(Rectangle())
         }
+        .buttonStyle(.plain)
+        .foregroundColor(.primary)
     }
     
     // MARK: - Helpers

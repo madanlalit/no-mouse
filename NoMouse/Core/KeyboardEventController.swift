@@ -139,10 +139,20 @@ final class KeyboardEventController {
         // Check for activation shortcut (Control + Space on keyDown)
         if type == .keyDown && keyCode == settings.keyCode {
             if flags.contains(settings.modifiers) && !appState.isActiveNonisolated {
-                // Activate grid mode
+                let gridEnabled = appState.isGridModeEnabledNonisolated
+                let freeMoveEnabled = appState.isFreeMoveEnabledNonisolated
+                
+                // Activate based on enabled modes
                 Task { @MainActor in
-                    self.appState.activateGridMode()
-                    self.onGridActivated?()
+                    if gridEnabled {
+                        // Start with grid mode
+                        self.appState.activateGridMode()
+                        self.onGridActivated?()
+                    } else if freeMoveEnabled {
+                        // Start with free move mode (no grid)
+                        self.appState.enterFreeMove()
+                        // Don't show grid overlay in free move only mode
+                    }
                 }
                 return nil  // Consume the event
             }
@@ -215,15 +225,21 @@ final class KeyboardEventController {
         let kVKLeftArrow: CGKeyCode = 123
         let kVKRightArrow: CGKeyCode = 124
         
-        // Tab - toggle free move mode
+        // Tab - toggle between grid and free move mode (only if both are enabled)
         if keyCode == kVKTab {
             Task { @MainActor in
-                self.appState.toggleFreeMove()
-                // Hide grid overlay in free move, show in grid mode
-                if self.appState.currentMode == .freeMove {
-                    self.onGridDeactivated?()
-                } else {
-                    self.onGridActivated?()
+                let gridEnabled = self.appState.isGridModeEnabled
+                let freeMoveEnabled = self.appState.isFreeMoveEnabled
+                
+                // Only toggle if both modes are enabled
+                if gridEnabled && freeMoveEnabled {
+                    self.appState.toggleFreeMove()
+                    // Hide grid overlay in free move, show in grid mode
+                    if self.appState.currentMode == .freeMove {
+                        self.onGridDeactivated?()
+                    } else {
+                        self.onGridActivated?()
+                    }
                 }
             }
             return nil

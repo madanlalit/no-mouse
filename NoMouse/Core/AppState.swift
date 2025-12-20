@@ -26,6 +26,12 @@ final class AppState: ObservableObject {
     
     @Published private(set) var currentMode: AppMode = .idle
     @Published var isEnabled: Bool = true  // Global enable/disable
+    @Published var isGridModeEnabled: Bool = true {  // Grid overlay mode
+        didSet { _isGridModeEnabledAtomic.store(isGridModeEnabled) }
+    }
+    @Published var isFreeMoveEnabled: Bool = true {  // Flow mode
+        didSet { _isFreeMoveEnabledAtomic.store(isFreeMoveEnabled) }
+    }
     
     /// First letter of two-letter grid input
     @Published private(set) var firstGridLetter: Character?
@@ -63,6 +69,8 @@ final class AppState: ObservableObject {
     
     /// Thread-safe check if app is active (uses atomic)
     private let _isActiveAtomic = AtomicBool(false)
+    private let _isGridModeEnabledAtomic = AtomicBool(true)
+    private let _isFreeMoveEnabledAtomic = AtomicBool(true)
     
     // MARK: - Mode Transitions
     
@@ -169,11 +177,21 @@ final class AppState: ObservableObject {
         _isActiveAtomic.load()
     }
     
+    /// Thread-safe grid mode enabled check for event tap
+    nonisolated var isGridModeEnabledNonisolated: Bool {
+        _isGridModeEnabledAtomic.load()
+    }
+    
+    /// Thread-safe free move enabled check for event tap
+    nonisolated var isFreeMoveEnabledNonisolated: Bool {
+        _isFreeMoveEnabledAtomic.load()
+    }
+    
     var statusText: String {
         guard isEnabled else { return "Disabled" }
         switch currentMode {
         case .idle:
-            return "Ready (⌃ Space to activate)"
+            return "Enabled (⌃ + space)"
         case .gridActive:
             if let first = firstGridLetter {
                 return "Grid: \(first)_"

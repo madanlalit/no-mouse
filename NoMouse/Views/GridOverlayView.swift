@@ -66,27 +66,6 @@ struct GridOverlayView: View {
         Canvas { context, _ in
             drawSubGrid(context: context, bounds: refinement)
         }
-        
-        // Instructions
-        VStack {
-            Spacer()
-            HStack {
-                Text("🎯 Refinement Mode")
-                    .font(.system(size: 14, weight: .bold, design: .monospaced))
-                    .foregroundColor(.cyan)
-                Text("• Type 2 letters for precision")
-                    .font(.system(size: 12, design: .monospaced))
-                    .foregroundColor(.white.opacity(0.8))
-                Text("• ESC to exit")
-                    .font(.system(size: 12, design: .monospaced))
-                    .foregroundColor(.white.opacity(0.6))
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 10)
-            .background(Color.black.opacity(0.8))
-            .cornerRadius(8)
-            .padding(.bottom, 50)
-        }
     }
     
     // MARK: - Drawing
