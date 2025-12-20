@@ -11,6 +11,8 @@ DerivedData/
 
 # App bundle (build output)
 NoMouse.app/Contents/MacOS/NoMouse
+NoMouse.app/
+NoMouse.dmg
 
 # IDE
 .idea/
