@@ -43,23 +43,33 @@ class NoMouse < Formula
   end
 
   def post_install
-    # Create symlink in /Applications for easy access
+    # Create symlink in ~/Applications (user-writable, no sudo needed)
+    user_apps = Pathname.new(Dir.home)/"Applications"
+    user_apps.mkpath unless user_apps.exist?
+    
     app_path = prefix/"NoMouse.app"
-    target = Pathname.new("/Applications/NoMouse.app")
+    target = user_apps/"NoMouse.app"
     
     # Remove existing symlink if present
     target.unlink if target.symlink?
     
     # Create new symlink
     target.make_symlink(app_path)
-    ohai "Symlink created: /Applications/NoMouse.app"
+    ohai "Symlink created: ~/Applications/NoMouse.app"
+  rescue => e
+    opoo "Could not create symlink: #{e.message}"
+    opoo "You can manually run: ln -s #{app_path} ~/Applications/"
   end
 
   def post_uninstall
-    # Remove symlink from /Applications on uninstall
-    target = Pathname.new("/Applications/NoMouse.app")
-    target.unlink if target.symlink?
-    ohai "Symlink removed: /Applications/NoMouse.app"
+    # Remove symlink from ~/Applications on uninstall
+    target = Pathname.new(Dir.home)/"Applications"/"NoMouse.app"
+    if target.symlink?
+      target.unlink
+      ohai "Symlink removed: ~/Applications/NoMouse.app"
+    end
+  rescue => e
+    opoo "Could not remove symlink: #{e.message}"
   end
 
   def caveats
@@ -71,8 +81,8 @@ class NoMouse < Formula
       
       Add NoMouse.app to both lists and enable them.
       
-      NoMouse has been linked to /Applications.
-      To start: open /Applications/NoMouse.app
+      NoMouse has been linked to ~/Applications.
+      To start: open ~/Applications/NoMouse.app
       
       Or use Spotlight (⌘ Space) and search "NoMouse"
     EOS
