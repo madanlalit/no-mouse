@@ -21,26 +21,48 @@ A keyboard-driven mouse control app for macOS. Navigate your screen with just th
 
 ## Installation
 
-### Using Setup Script (Recommended)
-```bash
-git clone https://github.com/madanlalit/no-mouse.git
-cd no-mouse
-chmod +x setup.sh
-./setup.sh
-```
+### Direct Download (Easiest)
+1. Download `NoMouse-X.X.X.zip` from [Releases](https://github.com/madanlalit/no-mouse/releases)
+2. Double-click to unzip
+3. **Move `NoMouse.app` to your Applications folder**
+4. **Right-click** `NoMouse.app` → **Open** (important!)
+5. Click **Open** in the warning dialog
+
+> ⚠️ **macOS Gatekeeper Warning**: Since this app is not signed with an Apple Developer certificate, macOS will show a warning. Right-clicking and selecting "Open" bypasses this for apps from identified developers you trust.
 
 ### Homebrew
 ```bash
-brew tap madanlalit
-brew install no-mouse
+brew tap madanlalit/homebrew-tap
+brew install --cask no-mouse
+```
+*Note: After installing, you may still need to right-click the app in Applications and choose 'Open' the first time to authorize it.*
+
+### Using Setup Script
+```bash
+git clone https://github.com/madanlalit/no-mouse.git
+cd no-mouse
+chmod +x scripts/setup.sh
+./scripts/setup.sh
 ```
 
-### Build Manually
+### Build from Source
 ```bash
+git clone https://github.com/madanlalit/no-mouse.git
+cd no-mouse
 swift build -c release
+mkdir -p NoMouse.app/Contents/MacOS
 cp .build/release/NoMouse NoMouse.app/Contents/MacOS/
 open NoMouse.app
 ```
+
+<details>
+<summary>🔧 Advanced: Remove quarantine flag (for technical users)</summary>
+
+If right-click → Open doesn't work, run this in Terminal:
+```bash
+xattr -dr com.apple.quarantine NoMouse.app
+```
+</details>
 
 ## Quick Start
 
@@ -103,23 +125,6 @@ NoMouse requires two permissions:
 
 Grant these in **System Settings → Privacy & Security**.
 
-## Building from Source
-
-```bash
-# Clone
-git clone https://github.com/madanlalit/no-mouse.git
-cd no-mouse
-
-# Build release
-swift build -c release
-
-# Create app bundle
-mkdir -p NoMouse.app/Contents/MacOS
-cp .build/release/NoMouse NoMouse.app/Contents/MacOS/
-
-# Run
-open NoMouse.app
-```
 
 ## License
 

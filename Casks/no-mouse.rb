@@ -3,9 +3,9 @@
 
 cask "no-mouse" do
   version "1.1.0"
-  sha256 "e97f4471ea7d98c0ab8c46629c442cb80131715dbc8056ce754dcbd4f08ae064"
+  sha256 "8c3448cf33159b2ab8e6e32f6f1629c5a90de1cb110e11709a25fc483d073618"
 
-  url "https://github.com/madanlalit/no-mouse/releases/download/v#{version}/NoMouse.dmg"
+  url "https://github.com/madanlalit/no-mouse/releases/download/v#{version}/NoMouse-#{version}.zip"
   name "NoMouse"
   desc "Keyboard-driven mouse control for macOS"
   homepage "https://github.com/madanlalit/no-mouse"

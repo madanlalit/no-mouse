@@ -28,3 +28,4 @@ xcuserdata/
 # Swift Package Manager
 Packages/
 Package.resolved
+*.zip
