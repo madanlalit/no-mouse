@@ -147,6 +147,9 @@ final class MouseController {
         // Set click count for double-clicks
         event.setIntegerValueField(.mouseEventClickState, value: clickCount)
         
+        // Clear modifier flags to prevent Return+Click being interpreted as right-click
+        event.flags = []
+        
         // Post to the HID event tap
         event.post(tap: .cghidEventTap)
     }
