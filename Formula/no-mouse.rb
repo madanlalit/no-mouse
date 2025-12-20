@@ -17,9 +17,16 @@ class NoMouse < Formula
     # Create app bundle
     app_contents = prefix/"NoMouse.app/Contents"
     (app_contents/"MacOS").mkpath
+    (app_contents/"Resources").mkpath
     (app_contents/"MacOS").install_symlink bin/"NoMouse"
     
-    # Create Info.plist
+    # Copy app icon if present
+    icon_path = buildpath/"NoMouse/Resources/AppIcon.icns"
+    if icon_path.exist?
+      cp icon_path, app_contents/"Resources/AppIcon.icns"
+    end
+    
+    # Create Info.plist with icon reference
     (app_contents/"Info.plist").write <<~EOS
       <?xml version="1.0" encoding="UTF-8"?>
       <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -33,6 +40,8 @@ class NoMouse < Formula
         <string>NoMouse</string>
         <key>CFBundleVersion</key>
         <string>#{version}</string>
+        <key>CFBundleIconFile</key>
+        <string>AppIcon</string>
         <key>LSUIElement</key>
         <true/>
         <key>NSAccessibilityUsageDescription</key>
