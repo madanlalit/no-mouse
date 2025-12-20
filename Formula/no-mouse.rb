@@ -5,8 +5,7 @@ class NoMouse < Formula
   desc "Keyboard-driven mouse control for macOS"
   homepage "https://github.com/madanlalit/no-mouse"
   url "https://github.com/madanlalit/no-mouse/archive/refs/tags/v1.1.0.tar.gz"
-  # TODO: Update sha256 after creating GitHub release - run: curl -sL <url> | shasum -a 256
-  sha256 "PLACEHOLDER_UPDATE_AFTER_RELEASE"
+  sha256 "56d940e8c1d9cc04bcac997b7d4680d39275e345f7a1aa41181bd27db50e2832"
   license "MIT"
 
   depends_on macos: :ventura
