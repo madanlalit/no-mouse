@@ -1,5 +1,11 @@
 # NoMouse 
 
+
+
+https://github.com/user-attachments/assets/7d2b4d75-9418-4906-8e73-518601cbaf87
+
+
+
 A keyboard-driven mouse control app for macOS. Navigate your screen with just the keyboard — no mouse needed.
 
 ## Features
