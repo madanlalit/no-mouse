@@ -1,6 +1,6 @@
 <div align="center">
 
-# NoMouse
+<img src="assets/nomouse-logo.svg" alt="nomouse" width="280" />
 
 **Navigate your screen with just the keyboard — no mouse needed.**
 
