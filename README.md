@@ -1,57 +1,71 @@
-# NoMouse 
+<div align="center">
 
+# NoMouse
 
+**Navigate your screen with just the keyboard — no mouse needed.**
 
-https://github.com/user-attachments/assets/7d2b4d75-9418-4906-8e73-518601cbaf87
+A keyboard-driven mouse control app for macOS that brings precision and speed to cursor navigation.
 
+[![GitHub Stars](https://img.shields.io/github/stars/madanlalit/no-mouse?style=social)](https://github.com/madanlalit/no-mouse)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/madanlalit/no-mouse/blob/main/LICENSE)
+[![macOS](https://img.shields.io/badge/macOS-13.0%2B-blue)](https://www.apple.com/macos)
+[![Swift](https://img.shields.io/badge/Swift-5.9-orange.svg)](https://swift.org)
 
+[Features](#-features) • [Installation](#-installation) • [Quick Start](#-quick-start) • [Shortcuts](#️-keyboard-shortcuts)
 
-A keyboard-driven mouse control app for macOS. Navigate your screen with just the keyboard — no mouse needed.
+</div>
 
-## Features
+---
 
-- **Grid Navigation** — 26×26 grid overlay with two-letter jump (676 positions)
-- **Sub-Grid Refinement** — Single-letter precision after initial jump
-- **Free Movement** — Arrow keys with acceleration
-- **All Click Types** — Left, right, middle, double-click
-- **Scroll & Drag** — Full scroll and click-and-drag support
-- **Multi-Monitor** — Works across all displays
-- **Menu Bar App** — Minimal footprint, no Dock icon
-- **Privacy First** — No network, no telemetry, fully local
+## 🚀 Quick Start
 
-## Requirements
+1. **Download** NoMouse from [Releases](https://github.com/madanlalit/no-mouse/releases)
+2. **Move** `NoMouse.app` to Applications folder
+3. **Launch** and grant permissions
+4. **Press** `⌃ Space` to activate grid overlay
+5. **Type** two letters (e.g., `MN`) → cursor jumps to that position
 
-- macOS 13.0 (Ventura) or later
-- Accessibility permission
-- Input Monitoring permission
+That's it! You're now controlling your mouse with just your keyboard.
 
-## Installation
+---
 
-### Direct Download (Easiest)
+## 🎯 Features
+
+- **⚡ Grid Navigation** — 26×26 grid overlay with two-letter jump (676 positions)
+- **🎯 Sub-Grid Refinement** — Single-letter precision after initial jump
+- **🔄 Free Movement** — Arrow keys with acceleration
+- **🖱️ All Click Types** — Left, right, middle, double-click
+- **📜 Scroll & Drag** — Full scroll and click-and-drag support
+- **🖥️ Multi-Monitor** — Works seamlessly across all displays
+- **🎛️ Menu Bar App** — Minimal footprint, no Dock icon
+- **🔒 Privacy First** — No network, no telemetry, fully local
+
+---
+
+## 📦 Installation
+
+### Option 1: Direct Download (Recommended)
+
 1. Download `NoMouse-X.X.X.zip` from [Releases](https://github.com/madanlalit/no-mouse/releases)
-2. Double-click to unzip
-3. **Move `NoMouse.app` to your Applications folder**
-4. **Right-click** `NoMouse.app` → **Open** (important!)
-5. Click **Open** in the warning dialog
+2. Unzip and move `NoMouse.app` to your **Applications** folder
+3. **Right-click** `NoMouse.app` → **Open** (important for first launch!)
+4. Click **Open** in the security dialog
 
-> ⚠️ **macOS Gatekeeper Warning**: Since this app is not signed with an Apple Developer certificate, macOS will show a warning. Right-clicking and selecting "Open" bypasses this for apps from identified developers you trust.
+> [!WARNING]
+> **macOS Gatekeeper Notice**: Since this app isn't signed with an Apple Developer certificate, macOS will show a security warning. Right-clicking and selecting "Open" bypasses this for apps from identified developers you trust.
 
-### Homebrew
+### Option 2: Homebrew
+
 ```bash
 brew tap madanlalit/homebrew-tap
 brew install --cask no-mouse
 ```
-*Note: After installing, you may still need to right-click the app in Applications and choose 'Open' the first time to authorize it.*
 
-### Using Setup Script
-```bash
-git clone https://github.com/madanlalit/no-mouse.git
-cd no-mouse
-chmod +x scripts/setup.sh
-./scripts/setup.sh
-```
+> [!NOTE]
+> After installing via Homebrew, you may still need to right-click the app in Applications and choose 'Open' on first launch.
 
-### Build from Source
+### Option 3: Build from Source
+
 ```bash
 git clone https://github.com/madanlalit/no-mouse.git
 cd no-mouse
@@ -62,26 +76,22 @@ open NoMouse.app
 ```
 
 <details>
-<summary>🔧 Advanced: Remove quarantine flag (for technical users)</summary>
+<summary>🔧 Advanced: Remove quarantine flag</summary>
 
 If right-click → Open doesn't work, run this in Terminal:
+
 ```bash
-xattr -dr com.apple.quarantine NoMouse.app
+xattr -dr com.apple.quarantine /Applications/NoMouse.app
 ```
+
 </details>
 
-## Quick Start
+---
 
-1. Launch NoMouse (appears in menu bar)
-2. Grant permissions when prompted
-3. Press **⌃ Space** to activate
-4. Type two letters (e.g., `MN`) → cursor jumps
-5. Type one letter for precision → cursor refines
-6. Press **Return** to click
-
-## Keyboard Shortcuts
+## ⌨️ Keyboard Shortcuts
 
 ### Activation
+
 | Shortcut | Action |
 |----------|--------|
 | **⌃ Space** | Activate grid overlay |
@@ -89,6 +99,7 @@ xattr -dr com.apple.quarantine NoMouse.app
 | **Tab** | Toggle grid ↔ free move mode |
 
 ### Grid Navigation
+
 | Shortcut | Action |
 |----------|--------|
 | **A-Z + A-Z** | Jump to grid cell |
@@ -96,6 +107,7 @@ xattr -dr com.apple.quarantine NoMouse.app
 | **Backspace** | Back to full grid / clear input |
 
 ### Mouse Clicks
+
 | Shortcut | Action |
 |----------|--------|
 | **Return** | Left click |
@@ -103,6 +115,7 @@ xattr -dr com.apple.quarantine NoMouse.app
 | **⌃ Return** | Middle click |
 
 ### Movement
+
 | Shortcut | Action |
 |----------|--------|
 | **↑ ↓ ← →** | Move cursor |
@@ -111,6 +124,7 @@ xattr -dr com.apple.quarantine NoMouse.app
 | *Hold arrow key* | Accelerates over time |
 
 ### Scroll
+
 | Shortcut | Action |
 |----------|--------|
 | **⌘ + ↑↓** | Scroll up/down |
@@ -118,24 +132,44 @@ xattr -dr com.apple.quarantine NoMouse.app
 | **⌘ + ⇧ + Arrow** | Fast scroll (3×) |
 
 ### Drag
+
 | Shortcut | Action |
 |----------|--------|
 | **D** | Toggle drag mode on/off |
 
-## Permissions
+---
 
-NoMouse requires two permissions:
+## 🔐 Permissions
 
-1. **Accessibility** — To move the cursor and simulate clicks
-2. **Input Monitoring** — To capture keyboard input globally
+NoMouse requires two macOS permissions to function:
 
-Grant these in **System Settings → Privacy & Security**.
+1. **Accessibility** — Allows NoMouse to move the cursor and simulate clicks
+2. **Input Monitoring** — Enables global keyboard shortcut capture
 
+You'll be prompted to grant these on first launch. If needed, you can enable them manually in:  
+**System Settings → Privacy & Security → Accessibility/Input Monitoring**
 
-## License
+> [!IMPORTANT]
+> Both permissions are essential for NoMouse to work. Your privacy is protected — all processing happens locally on your device.
 
-MIT License — see [LICENSE](LICENSE)
+---
 
-## Contributing
+## 🤝 Contributing
 
-Contributions welcome! Please open an issue to discuss changes before submitting a PR.
+Contributions are welcome! Please open an issue to discuss changes before submitting a PR.
+
+**Found NoMouse helpful?** Give us a ⭐ on [GitHub](https://github.com/madanlalit/no-mouse)!
+
+---
+
+## 📄 License
+
+MIT License — see [LICENSE](LICENSE) for details.
+
+---
+
+<div align="center">
+
+**Made with ❤️ for keyboard enthusiasts**
+
+</div>
